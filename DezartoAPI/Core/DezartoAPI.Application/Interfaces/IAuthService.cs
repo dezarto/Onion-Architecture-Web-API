@@ -4,7 +4,7 @@ namespace DezartoAPI.Application.Interfaces
 {
     public interface IAuthService
     {
-        Task<AuthResult> RegisterAsync(RegisterDTO registerDto);
+        Task<AuthResult> RegisterAsync(CustomerDTO customerDto);
         Task<AuthResult> LoginAsync(LoginDTO loginDto);
     }
 }

@@ -1,19 +1,33 @@
-﻿namespace DezartoAPI.Application.DTOs
+﻿using MongoDB.Bson;
+
+namespace DezartoAPI.Application.DTOs
 {
     public class CustomerDTO
     {
         public string? Id { get; set; }
         public string Name { get; set; }
+        public string Surname { get; set; }
         public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
-        public string PostalCode { get; set; }
-        public DateTime UpdatedDate { get; set; }
-        public bool IsActive { get; set; }
         public string Gender { get; set; }
-        public int LoyaltyPoints { get; set; }  // Sadakat puanları
+        public DateTime DateOfBirth { get; set; }
+        public string PasswordHash { get; set; }
+        public string PhoneNumber { get; set; }
+        public List<AddressDTO> Addresses { get; set; } = new List<AddressDTO>();
+        public DateTime UpdatedDate { get; set; }
+        public bool IsActive { get; set; } = true;
+        public string Role { get; set; } = "User"; // Default role
+        public int LoyaltyPoints { get; set; } = 0;  // Default loyalty points
+        public List<ObjectId> OrderIds { get; set; }
+    }
+
+    public class AddressDTO
+    {
+        public string NameOfAddress { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string District { get; set; }
+        public string Neighborhood { get; set; }
+        public string Street { get; set; }
+        public string PostalCode { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DezartoAPI.Domain.Entities.Common;
+using MongoDB.Bson;
 
 namespace DezartoAPI.Domain.Entities
 {
@@ -11,6 +12,6 @@ namespace DezartoAPI.Domain.Entities
         public int EvaluationAmount { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
-        public ICollection<Order> Orders { get; set; } = new List<Order>();
+        public ObjectId OrdersId { get; set; }
     }
 }

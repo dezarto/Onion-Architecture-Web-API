@@ -2,6 +2,7 @@
 using DezartoAPI.Application.Interfaces;
 using DezartoAPI.Domain.Interfaces;
 using DezartoAPI.Domain.Entities;
+using MongoDB.Bson;
 
 namespace DezartoAPI.Application.Services
 {
@@ -18,27 +19,39 @@ namespace DezartoAPI.Application.Services
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<AuthResult> RegisterAsync(RegisterDTO registerDto)
+        public async Task<AuthResult> RegisterAsync(CustomerDTO customerDto)
         {
-            if (await _customerRepository.CheckIfUserExistsAsync(registerDto.Email))
+            if (await _customerRepository.CheckIfUserExistsAsync(customerDto.Email))
             {
                 return new AuthResult { Success = false, Errors = new[] { "Email already in use." } };
             }
 
-            var hashedPassword = _passwordHasher.HashPassword(registerDto.Password);
+            var hashedPassword = _passwordHasher.HashPassword(customerDto.PasswordHash);
 
             var customer = new Customer
             {
-                Email = registerDto.Email,
+                Name = customerDto.Name,
+                Surname = customerDto.Surname,
+                Email = customerDto.Email,
+                Gender = customerDto.Gender,
+                DateOfBirth = customerDto.DateOfBirth,
                 PasswordHash = hashedPassword,
-                Name = registerDto.Name,
-                PhoneNumber = registerDto.PhoneNumber,
-                DateOfBirth = registerDto.DateOfBirth,
-                Address = registerDto.Address,
-                City = registerDto.City,
-                Country = registerDto.Country,
-                PostalCode = registerDto.PostalCode,
-                Gender = registerDto.Gender,
+                PhoneNumber = customerDto.PhoneNumber,
+                Addresses = customerDto.Addresses.Select(a => new Address
+                {
+                    NameOfAddress = a.NameOfAddress,
+                    Country = a.Country,
+                    City = a.City,
+                    District = a.District,
+                    Neighborhood = a.Neighborhood,
+                    Street = a.Street,
+                    PostalCode = a.PostalCode
+                }).ToList(),  // Adresleri listeye çeviriyoruz
+                UpdatedDate = DateTime.UtcNow,
+                IsActive = true,
+                Role = customerDto.Role,
+                LoyaltyPoints = customerDto.LoyaltyPoints,
+                OrderIds = customerDto.OrderIds ?? new List<ObjectId>()
             };
 
             await _customerRepository.AddAsync(customer);

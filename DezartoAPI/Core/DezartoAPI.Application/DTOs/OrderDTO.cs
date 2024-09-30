@@ -1,9 +1,4 @@
-﻿using DezartoAPI.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MongoDB.Bson;
 
 namespace DezartoAPI.Application.DTOs
 {
@@ -19,8 +14,13 @@ namespace DezartoAPI.Application.DTOs
         public string BillingAddressId { get; set; }
         public string ShippingMethod { get; set; }
         public string PaymentMethod { get; set; }
-        public Customer Customer { get; set; }
-        //public ICollection<Product> Products { get; set; } = new List<Product>();
-        //public ICollection<Customer> Customer { get; set; } = new List<Customer>();
+        public ObjectId CustomerId { get; set; }
+        public List<ProductInOrderDTO> Products { get; set; }
+    }
+
+    public class ProductInOrderDTO
+    {
+        public ObjectId ProductId { get; set; } // Ürün referansı
+        public int Quantity { get; set; } // Sipariş edilen ürün miktarı
     }
 }
