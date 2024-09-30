@@ -3,12 +3,6 @@ using DezartoAPI.Application.DTOs;
 using DezartoAPI.Application.Interfaces;
 using DezartoAPI.Domain.Entities;
 using DezartoAPI.Domain.Interfaces;
-using DezartoAPI.Domain.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DezartoAPI.Application.Services
 {

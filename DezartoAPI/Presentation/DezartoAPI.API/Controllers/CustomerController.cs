@@ -19,7 +19,7 @@ namespace DezartoAPI.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(string id) // Guid yerine string kullanıyoruz
+        public async Task<IActionResult> GetById(string id)
         {
             var customer = await _customerService.GetCustomerByIdAsync(id);
             if (customer == null)
