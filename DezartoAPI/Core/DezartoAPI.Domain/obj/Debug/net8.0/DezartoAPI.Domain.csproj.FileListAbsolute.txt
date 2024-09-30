@@ -1,0 +1,12 @@
+C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Core\DezartoAPI.Domain\bin\Debug\net8.0\DezartoAPI.Domain.deps.json
+C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Core\DezartoAPI.Domain\bin\Debug\net8.0\DezartoAPI.Domain.dll
+C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Core\DezartoAPI.Domain\bin\Debug\net8.0\DezartoAPI.Domain.pdb
+C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Core\DezartoAPI.Domain\obj\Debug\net8.0\DezartoAPI.Domain.csproj.AssemblyReference.cache
+C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Core\DezartoAPI.Domain\obj\Debug\net8.0\DezartoAPI.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Core\DezartoAPI.Domain\obj\Debug\net8.0\DezartoAPI.Domain.AssemblyInfoInputs.cache
+C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Core\DezartoAPI.Domain\obj\Debug\net8.0\DezartoAPI.Domain.AssemblyInfo.cs
+C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Core\DezartoAPI.Domain\obj\Debug\net8.0\DezartoAPI.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Core\DezartoAPI.Domain\obj\Debug\net8.0\DezartoAPI.Domain.dll
+C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Core\DezartoAPI.Domain\obj\Debug\net8.0\refint\DezartoAPI.Domain.dll
+C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Core\DezartoAPI.Domain\obj\Debug\net8.0\DezartoAPI.Domain.pdb
+C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Core\DezartoAPI.Domain\obj\Debug\net8.0\ref\DezartoAPI.Domain.dll

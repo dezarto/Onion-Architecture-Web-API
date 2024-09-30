@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "RpHJppR+kR7OFH1gnut38aATvGOIFsK1Ct9a0ILH5ZM=",
+  "Source": "DezartoAPI.API",
+  "BasePath": "_content/DezartoAPI.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -1,0 +1,6 @@
+@DezartoAPI.API_HostAddress = http://localhost:5229
+
+GET {{DezartoAPI.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

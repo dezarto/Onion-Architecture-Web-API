@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A75AF21C-E3ED-4260-A31A-34CB40D30314}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DezartoAPI.Domain", "Core\DezartoAPI.Domain\DezartoAPI.Domain.csproj", "{4DE1D553-AD98-444C-A1A2-6F555E1FD32D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DezartoAPI.Application", "Core\DezartoAPI.Application\DezartoAPI.Application.csproj", "{0368839F-A6FE-4AD6-BC94-A87766CE4D9E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{6BFFD562-2F76-490D-9107-533926A331A6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DezartoAPI.Infrastructure", "Infrastructure\DezartoAPI.Infrastructure\DezartoAPI.Infrastructure.csproj", "{F5864FD1-DCF6-413A-AA86-96F966C16269}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{12DDBAFB-BE5F-4888-8FF3-4D879913028D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DezartoAPI.API", "Presentation\DezartoAPI.API\DezartoAPI.API.csproj", "{E1D9AEF9-37C4-408E-99E3-B3D9E8A2F742}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DE1D553-AD98-444C-A1A2-6F555E1FD32D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DE1D553-AD98-444C-A1A2-6F555E1FD32D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DE1D553-AD98-444C-A1A2-6F555E1FD32D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DE1D553-AD98-444C-A1A2-6F555E1FD32D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0368839F-A6FE-4AD6-BC94-A87766CE4D9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0368839F-A6FE-4AD6-BC94-A87766CE4D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0368839F-A6FE-4AD6-BC94-A87766CE4D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0368839F-A6FE-4AD6-BC94-A87766CE4D9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5864FD1-DCF6-413A-AA86-96F966C16269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5864FD1-DCF6-413A-AA86-96F966C16269}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5864FD1-DCF6-413A-AA86-96F966C16269}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5864FD1-DCF6-413A-AA86-96F966C16269}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1D9AEF9-37C4-408E-99E3-B3D9E8A2F742}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1D9AEF9-37C4-408E-99E3-B3D9E8A2F742}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1D9AEF9-37C4-408E-99E3-B3D9E8A2F742}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1D9AEF9-37C4-408E-99E3-B3D9E8A2F742}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4DE1D553-AD98-444C-A1A2-6F555E1FD32D} = {A75AF21C-E3ED-4260-A31A-34CB40D30314}
+		{0368839F-A6FE-4AD6-BC94-A87766CE4D9E} = {A75AF21C-E3ED-4260-A31A-34CB40D30314}
+		{F5864FD1-DCF6-413A-AA86-96F966C16269} = {6BFFD562-2F76-490D-9107-533926A331A6}
+		{E1D9AEF9-37C4-408E-99E3-B3D9E8A2F742} = {12DDBAFB-BE5F-4888-8FF3-4D879913028D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {241313D1-DB75-48BC-A634-A62C1851B5B8}
+	EndGlobalSection
+EndGlobal
