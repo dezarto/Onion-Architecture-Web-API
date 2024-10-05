@@ -3,6 +3,7 @@ using DezartoAPI.Application.DTOs;
 using DezartoAPI.Application.Interfaces;
 using DezartoAPI.Domain.Entities;
 using DezartoAPI.Domain.Interfaces;
+using MongoDB.Bson;
 
 namespace DezartoAPI.Application.Services
 {
@@ -26,7 +27,7 @@ namespace DezartoAPI.Application.Services
             cartDto.Id = cart.Id;
         }
 
-        public async Task DeleteCartAsync(string id)
+        public async Task DeleteCartAsync(ObjectId id)
         {
             await _cartService.DeleteCartAsync(id);
         }
@@ -37,7 +38,7 @@ namespace DezartoAPI.Application.Services
             return _mapper.Map<IEnumerable<CartDTO>>(carts);
         }
 
-        public async Task<CartDTO> GetCartByIdAsync(string id)
+        public async Task<CartDTO> GetCartByIdAsync(ObjectId id)
         {
             var cart = await _cartService.GetCartByIdAsync(id);
             return _mapper.Map<CartDTO>(cart);

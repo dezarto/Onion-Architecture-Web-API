@@ -1,10 +1,11 @@
-﻿using MongoDB.Bson;
+﻿using DezartoAPI.Domain.Entities;
+using MongoDB.Bson;
 
 namespace DezartoAPI.Application.DTOs
 {
     public class OrderDTO
     {
-        public string? Id { get; set; }
+        public ObjectId Id { get; set; }
         public string Description { get; set; }
         public string Adress { get; set; }
         public DateTime OrderDate { get; set; }
@@ -15,12 +16,12 @@ namespace DezartoAPI.Application.DTOs
         public string ShippingMethod { get; set; }
         public string PaymentMethod { get; set; }
         public ObjectId CustomerId { get; set; }
-        public List<ProductInOrderDTO> Products { get; set; }
+        public List<ProductInOrder> Products { get; set; }
     }
 
     public class ProductInOrderDTO
     {
-        public ObjectId ProductId { get; set; } // Ürün referansı
+        public string ProductId { get; set; } // Ürün referansı
         public int Quantity { get; set; } // Sipariş edilen ürün miktarı
     }
 }

@@ -3,6 +3,8 @@ using DezartoAPI.Application.DTOs;
 using DezartoAPI.Application.Interfaces;
 using DezartoAPI.Domain.Entities;
 using DezartoAPI.Domain.Interfaces;
+using DezartoAPI.Domain.Services;
+using MongoDB.Bson;
 
 namespace DezartoAPI.Application.Services
 {
@@ -26,9 +28,9 @@ namespace DezartoAPI.Application.Services
             orderDto.Id = order.Id;
         }
 
-        public async Task DeleteOrderAsync(string id)
+        public async Task DeleteOrderAsync(ObjectId id)
         {
-            await _orderService.DeleteOrderAsync(id);
+             await _orderService.DeleteOrderAsync(id);
         }
 
         public async Task<IEnumerable<OrderDTO>> GetAllOrderAsync()
@@ -37,7 +39,7 @@ namespace DezartoAPI.Application.Services
             return _mapper.Map<IEnumerable<OrderDTO>>(orders);
         }
 
-        public async Task<OrderDTO> GetOrderByIdAsync(string id)
+        public async Task<OrderDTO> GetOrderByIdAsync(ObjectId id)
         {
             var order = await _orderService.GetOrderByIdAsync(id);
             return _mapper.Map<OrderDTO>(order);

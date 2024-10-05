@@ -2,6 +2,7 @@
 using DezartoAPI.Application.DTOs;
 using DezartoAPI.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 
 namespace DezartoAPI.API.Controllers
 {
@@ -19,7 +20,7 @@ namespace DezartoAPI.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(string id)
+        public async Task<IActionResult> GetById(ObjectId id)
         {
             var product = await _orderService.GetOrderByIdAsync(id);
             if (product == null)
@@ -44,7 +45,7 @@ namespace DezartoAPI.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(string id, OrderDTO orderDTO)
+        public async Task<IActionResult> Update(ObjectId id, OrderDTO orderDTO)
         {
             orderDTO.Id = id;
             await _orderService.UpdateOrderAsync(orderDTO);
@@ -52,7 +53,7 @@ namespace DezartoAPI.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(ObjectId id)
         {
             await _orderService.DeleteOrderAsync(id);
             return NoContent();

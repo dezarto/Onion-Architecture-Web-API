@@ -1,5 +1,6 @@
 ﻿using DezartoAPI.Domain.Entities;
 using DezartoAPI.Domain.Interfaces;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace DezartoAPI.Domain.Services
             _productRepository = productRepository;
         }
 
-        public async Task<Product> GetProductByIdAsync(string id)
+        public async Task<Product> GetProductByIdAsync(ObjectId id)
         {
             return await _productRepository.GetByIdAsync(id);
         }
@@ -37,7 +38,7 @@ namespace DezartoAPI.Domain.Services
             await _productRepository.UpdateAsync(product);
         }
 
-        public async Task DeleteProductAsync(string id)
+        public async Task DeleteProductAsync(ObjectId id)
         {
             await _productRepository.DeleteAsync(id);
         }

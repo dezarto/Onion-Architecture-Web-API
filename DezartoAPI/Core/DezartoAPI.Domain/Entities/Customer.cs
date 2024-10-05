@@ -1,11 +1,6 @@
 ﻿using DezartoAPI.Domain.Entities.Common;
 using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace DezartoAPI.Domain.Entities
 {
@@ -24,6 +19,7 @@ namespace DezartoAPI.Domain.Entities
         public string Role { get; set; } = "User"; // Default role
         public int LoyaltyPoints { get; set; } = 0;  // Default loyalty points
         public List<ObjectId> OrderIds { get; set; }
+        public ObjectId CartId { get; set; }
     }
 
     public class Address

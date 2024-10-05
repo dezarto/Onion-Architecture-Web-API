@@ -1,5 +1,6 @@
 ﻿using DezartoAPI.Domain.Entities;
 using DezartoAPI.Domain.Interfaces;
+using MongoDB.Bson;
 
 namespace DezartoAPI.Domain.Services
 {
@@ -17,7 +18,7 @@ namespace DezartoAPI.Domain.Services
             await _cartRepository.AddAsync(cart);
         }
 
-        public async Task DeleteCartAsync(string id)
+        public async Task DeleteCartAsync(ObjectId id)
         {
             await _cartRepository.DeleteAsync(id);
         }
@@ -27,7 +28,7 @@ namespace DezartoAPI.Domain.Services
             return await _cartRepository.GetAllAsync();
         }
 
-        public async Task<Cart> GetCartByIdAsync(string id)
+        public async Task<Cart> GetCartByIdAsync(ObjectId id)
         {
             return await _cartRepository.GetByIdAsync(id);
         }

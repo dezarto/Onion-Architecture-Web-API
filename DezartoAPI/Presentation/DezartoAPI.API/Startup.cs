@@ -1,19 +1,30 @@
 ﻿using DezartoAPI.Application.Interfaces;
 using DezartoAPI.Application.Services;
-using AutoMapper;
 using DezartoAPI.API.Mapping;
-using DezartoAPI.Domain.Entities;
 using DezartoAPI.Domain.Interfaces;
 using DezartoAPI.Infrastructure.Persistence;
 using DezartoAPI.Infrastructure.Repositories;
 using DezartoAPI.Domain.Services;
 using MongoDB.Driver;
 using DezartoAPI.Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+
+// CORS ayarları
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder => builder
+            .AllowAnyOrigin() // Tüm kaynaklara izin ver
+            .AllowAnyMethod() // Tüm HTTP yöntemlerine izin ver
+            .AllowAnyHeader()); // Tüm başlıklara izin ver
+});
 
 // MongoDbContext ve IMongoDatabase'i kaydediyoruz
 builder.Services.AddSingleton<MongoDbContext>(sp =>
@@ -22,42 +33,62 @@ builder.Services.AddSingleton<MongoDbContext>(sp =>
 builder.Services.AddSingleton<IMongoDatabase>(sp => sp.GetRequiredService<MongoDbContext>().Database);
 
 // Dependency Injection for Repository and Services
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>(); // Customer Repository
-builder.Services.AddScoped<ICustomerService, CustomerService>(); // Customer Service
-builder.Services.AddScoped<ICustomerAppService, CustomerAppService>(); // Customer Application Service
-
-// AutoMapper configuration
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ICustomerAppService, CustomerAppService>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ICartAppService, CartAppService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductAppService, ProductAppService>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderAppService, OrderAppService>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
-// Add Swagger for API documentation
+// **JWT Authentication configuration**
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("gizliAnahtar")), // gizli anahtar buraya yazılır
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// AuthService ve gerekli bağımlılıklarını kaydedin
-builder.Services.AddScoped<IAuthService, AuthService>(); // AuthService
-builder.Services.AddScoped<ITokenService, TokenService>(); // TokenService
-builder.Services.AddScoped<IPasswordHasher, PasswordHasher>(); // PasswordHasher
-
-// Product Service için Dependency Injection
-builder.Services.AddScoped<IProductService, ProductService>(); // Product Domain Service
-builder.Services.AddScoped<IProductAppService, ProductAppService>(); // Product Application Service
-builder.Services.AddScoped<IProductRepository, ProductRepository>(); // Product Repository
-
-//Order Service için Dependency Injection
-builder.Services.AddScoped<IOrderService, OrderService>(); // Order Domain Service
-builder.Services.AddScoped<IOrderAppService, OrderAppService>(); // Order Application Service
-builder.Services.AddScoped<IOrderRepository, OrderRepository>(); // Order Repository
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// CORS'u kullan
+app.UseCors("AllowAllOrigins");
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+// **JWT Authentication Middleware**
+app.UseAuthentication(); // <-- Authentication burada çağrılmalı
+app.UseAuthorization();   // <-- Authorization ise sonrasında gelir
+
 app.UseHttpsRedirection();
-app.UseAuthorization();
+
 app.MapControllers();
+
 app.Run();

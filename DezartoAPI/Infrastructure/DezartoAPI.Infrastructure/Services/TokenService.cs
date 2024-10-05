@@ -1,12 +1,12 @@
-﻿using DezartoAPI.Application.Interfaces;
+﻿using DezartoAPI.Application.DTOs;
+using DezartoAPI.Application.Interfaces;
 using DezartoAPI.Domain.Entities;
-using System;
 
 namespace DezartoAPI.Infrastructure.Services
 {
     public class TokenService : ITokenService
     {
-        public string GenerateToken(Customer customer)
+        public string GenerateToken(CustomerDTO customerDto)
         {
             // Token oluşturma mantığı
             // Örnek: JWT kullanarak token oluşturulabilir

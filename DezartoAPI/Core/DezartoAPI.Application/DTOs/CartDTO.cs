@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DezartoAPI.Domain.Entities;
+using MongoDB.Bson;
 
 namespace DezartoAPI.Application.DTOs
 {
     public class CartDTO
     {
-        public string? Id { get; set; }
-        public string CustomerId { get; set; }
+        public ObjectId Id { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
-        public List<CartItemDTO> Items { get; set; }
+        public List<CartItem> Items { get; set; }
         public decimal TotalPrice { get; set; }
+        public ObjectId CustomerId { get; set; }
     }
 
     public class CartItemDTO
     {
-        public string ProductId { get; set; }
+        public ObjectId ProductId { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal TotalPrice { get; set; }

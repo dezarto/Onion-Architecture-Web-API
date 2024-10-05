@@ -1,4 +1,5 @@
 ﻿using DezartoAPI.Domain.Entities;
+using MongoDB.Bson;
 
 namespace DezartoAPI.Domain.Interfaces
 {
@@ -6,8 +7,8 @@ namespace DezartoAPI.Domain.Interfaces
     {
         Task AddAsync(Cart cart);
         Task UpdateAsync(Cart cart);
-        Task DeleteAsync(string id);
+        Task DeleteAsync(ObjectId id);
         Task<IEnumerable<Cart>> GetAllAsync();
-        Task<Cart> GetByIdAsync(string id);
+        Task<Cart> GetByIdAsync(ObjectId id);
     }
 }

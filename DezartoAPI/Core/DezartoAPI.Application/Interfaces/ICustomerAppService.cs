@@ -1,18 +1,17 @@
 ﻿using DezartoAPI.Application.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DezartoAPI.Domain.Entities;
+using MongoDB.Bson;
 
 namespace DezartoAPI.Application.Interfaces
 {
     public interface ICustomerAppService
     {
-        Task<CustomerDTO> GetCustomerByIdAsync(string id);
+        Task<CustomerDTO> GetCustomerByIdAsync(ObjectId id);
         Task<IEnumerable<CustomerDTO>> GetAllCustomersAsync();
         Task AddCustomerAsync(CustomerDTO customerDto);
         Task UpdateCustomerAsync(CustomerDTO customerDto);
-        Task DeleteCustomerAsync(string id);
+        Task DeleteCustomerAsync(ObjectId id);
+        Task<bool> CheckIfCustomerExistsAsync(string email);
+        Task<Customer> GetByEmailAsync(string email);
     }
 }

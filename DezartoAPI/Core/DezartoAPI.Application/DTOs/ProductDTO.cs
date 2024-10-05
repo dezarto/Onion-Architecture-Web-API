@@ -1,11 +1,10 @@
-﻿using DezartoAPI.Domain.Entities;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 
 namespace DezartoAPI.Application.DTOs
 {
     public class ProductDTO
     {
-        public string? Id { get; set; }
+        public ObjectId Id { get; set; }
         public string Name { get; set; }
         public int Stock { get; set; }
         public int Price { get; set; }

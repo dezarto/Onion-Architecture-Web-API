@@ -1,10 +1,12 @@
-﻿using MongoDB.Bson;
+﻿using DezartoAPI.Domain.Entities;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace DezartoAPI.Application.DTOs
 {
     public class CustomerDTO
     {
-        public string? Id { get; set; }
+        public ObjectId Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
@@ -12,12 +14,13 @@ namespace DezartoAPI.Application.DTOs
         public DateTime DateOfBirth { get; set; }
         public string PasswordHash { get; set; }
         public string PhoneNumber { get; set; }
-        public List<AddressDTO> Addresses { get; set; } = new List<AddressDTO>();
+        public List<Address> Addresses { get; set; } = new List<Address>();
         public DateTime UpdatedDate { get; set; }
         public bool IsActive { get; set; } = true;
         public string Role { get; set; } = "User"; // Default role
         public int LoyaltyPoints { get; set; } = 0;  // Default loyalty points
         public List<ObjectId> OrderIds { get; set; }
+        public ObjectId CartId { get; set; }
     }
 
     public class AddressDTO

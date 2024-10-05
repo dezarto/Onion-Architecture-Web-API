@@ -1,19 +1,14 @@
 ﻿using DezartoAPI.Application.DTOs;
-using DezartoAPI.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MongoDB.Bson;
 
 namespace DezartoAPI.Application.Interfaces
 {
     public interface IProductAppService
     {
-        Task<ProductDTO> GetProductByIdAsync(string id);
+        Task<ProductDTO> GetProductByIdAsync(ObjectId id);
         Task<IEnumerable<ProductDTO>> GetAllProductAsync();
         Task AddProductAsync(ProductDTO productDto);
         Task UpdateProductAsync(ProductDTO productDto);
-        Task DeleteProductAsync(string id);
+        Task DeleteProductAsync(ObjectId id);
     }
 }

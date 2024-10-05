@@ -1,15 +1,11 @@
-﻿using DezartoAPI.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DezartoAPI.Application.DTOs;
+using DezartoAPI.Domain.Entities;
 
 namespace DezartoAPI.Application.Interfaces
 {
     public interface ITokenService
     {
-        string GenerateToken(Customer customer);
+        string GenerateToken(CustomerDTO customerDto);
         RefreshToken GenerateRefreshToken();
     }
 }

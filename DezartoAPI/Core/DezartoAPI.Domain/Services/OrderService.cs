@@ -1,5 +1,6 @@
 ﻿using DezartoAPI.Domain.Entities;
 using DezartoAPI.Domain.Interfaces;
+using MongoDB.Bson;
 
 namespace DezartoAPI.Domain.Services
 {
@@ -17,7 +18,7 @@ namespace DezartoAPI.Domain.Services
             await _orderRepository.AddAsync(order);
         }
 
-        public async Task DeleteOrderAsync(string id)
+        public async Task DeleteOrderAsync(ObjectId id)
         {
             await _orderRepository.DeleteAsync(id);
         }
@@ -27,7 +28,7 @@ namespace DezartoAPI.Domain.Services
             return await _orderRepository.GetAllAsync();
         }
 
-        public async Task<Order> GetOrderByIdAsync(string id)
+        public async Task<Order> GetOrderByIdAsync(ObjectId id)
         {
             return await _orderRepository.GetByIdAsync(id);
         }

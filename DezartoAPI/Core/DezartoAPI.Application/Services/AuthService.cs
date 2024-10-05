@@ -3,60 +3,67 @@ using DezartoAPI.Application.Interfaces;
 using DezartoAPI.Domain.Interfaces;
 using DezartoAPI.Domain.Entities;
 using MongoDB.Bson;
+using AutoMapper;
 
 namespace DezartoAPI.Application.Services
 {
     public class AuthService : IAuthService
     {
+        private readonly ICustomerAppService _customerAppService;
         private readonly ICustomerRepository _customerRepository;
         private readonly ITokenService _tokenService; // Token üretimi için servis
         private readonly IPasswordHasher _passwordHasher; // Şifreyi hashlemek için servis
+        private readonly IMapper _mapper;
 
-        public AuthService(ICustomerRepository customerRepository, ITokenService tokenService, IPasswordHasher passwordHasher)
+        public AuthService(ICustomerRepository customerRepository, ITokenService tokenService, IPasswordHasher passwordHasher, ICustomerAppService customerAppService, IMapper mapper)
         {
+            _customerAppService = customerAppService;
             _customerRepository = customerRepository;
             _tokenService = tokenService;
             _passwordHasher = passwordHasher;
+            _mapper = mapper;
         }
 
-        public async Task<AuthResult> RegisterAsync(CustomerDTO customerDto)
+        public async Task<AuthResult> RegisterAsync(RegisterDTO registerDto)
         {
-            if (await _customerRepository.CheckIfUserExistsAsync(customerDto.Email))
+            if (await _customerAppService.CheckIfCustomerExistsAsync(registerDto.Email))
             {
                 return new AuthResult { Success = false, Errors = new[] { "Email already in use." } };
             }
 
-            var hashedPassword = _passwordHasher.HashPassword(customerDto.PasswordHash);
+            var hashedPassword = _passwordHasher.HashPassword(registerDto.PasswordHash);
 
-            var customer = new Customer
+            var customerDto = new CustomerDTO
             {
-                Name = customerDto.Name,
-                Surname = customerDto.Surname,
-                Email = customerDto.Email,
-                Gender = customerDto.Gender,
-                DateOfBirth = customerDto.DateOfBirth,
+                Id = registerDto.Id,
+                Name = registerDto.Name,
+                Surname = registerDto.Surname,
+                Email = registerDto.Email,
+                Gender = registerDto.Gender,
+                DateOfBirth = registerDto.DateOfBirth,
                 PasswordHash = hashedPassword,
-                PhoneNumber = customerDto.PhoneNumber,
-                Addresses = customerDto.Addresses.Select(a => new Address
-                {
-                    NameOfAddress = a.NameOfAddress,
-                    Country = a.Country,
-                    City = a.City,
-                    District = a.District,
-                    Neighborhood = a.Neighborhood,
-                    Street = a.Street,
-                    PostalCode = a.PostalCode
-                }).ToList(),  // Adresleri listeye çeviriyoruz
+                PhoneNumber = registerDto.PhoneNumber,
+                //Addresses = registerDto.Addresses.Select(a => new Address
+                //{
+                //    NameOfAddress = a.NameOfAddress,
+                //    Country = a.Country,
+                //    City = a.City,
+                //    District = a.District,
+                //    Neighborhood = a.Neighborhood,
+                //    Street = a.Street,
+                //    PostalCode = a.PostalCode
+                //}).ToList(),  // Adresleri listeye çeviriyoruz
                 UpdatedDate = DateTime.UtcNow,
                 IsActive = true,
-                Role = customerDto.Role,
-                LoyaltyPoints = customerDto.LoyaltyPoints,
-                OrderIds = customerDto.OrderIds ?? new List<ObjectId>()
+                Role = registerDto.Role,
+                LoyaltyPoints = registerDto.LoyaltyPoints,
+                //OrderIds = registerDto.OrderIds ?? new List<string>()
+                CartId = registerDto.CartId,
             };
 
-            await _customerRepository.AddAsync(customer);
+            await _customerAppService.AddCustomerAsync(customerDto);
 
-            var token = _tokenService.GenerateToken(customer);
+            var token = _tokenService.GenerateToken(customerDto);
             var refreshToken = _tokenService.GenerateRefreshToken();
 
             return new AuthResult
@@ -69,14 +76,16 @@ namespace DezartoAPI.Application.Services
 
         public async Task<AuthResult> LoginAsync(LoginDTO loginDto)
         {
-            var user = await _customerRepository.GetByEmailAsync(loginDto.Email);
+            var user = await _customerAppService.GetByEmailAsync(loginDto.Email);
 
             if (user == null || !_passwordHasher.VerifyPassword(user.PasswordHash, loginDto.Password))
             {
                 return new AuthResult { Success = false, Errors = new[] { "Invalid email or password." } };
             }
 
-            var token = _tokenService.GenerateToken(user);
+            var userDto = _mapper.Map<CustomerDTO>(user);
+
+            var token = _tokenService.GenerateToken(userDto);
             var refreshToken = _tokenService.GenerateRefreshToken();
 
             return new AuthResult

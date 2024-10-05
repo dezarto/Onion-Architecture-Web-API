@@ -1,6 +1,6 @@
 ﻿using DezartoAPI.Domain.Entities;
 using DezartoAPI.Domain.Interfaces;
-using System.Linq.Expressions;
+using MongoDB.Bson;
 
 namespace DezartoAPI.Domain.Services
 {
@@ -13,7 +13,7 @@ namespace DezartoAPI.Domain.Services
             _customerRepository = customerRepository;
         }
 
-        public async Task<Customer> GetByCustomerIdAsync(string id)
+        public async Task<Customer> GetByCustomerIdAsync(ObjectId id)
         {
             return await _customerRepository.GetByIdAsync(id);
         }
@@ -37,9 +37,14 @@ namespace DezartoAPI.Domain.Services
             await _customerRepository.UpdateAsync(customer);
         }
 
-        public async Task DeleteCustomerAsync(string id)
+        public async Task DeleteCustomerAsync(ObjectId id)
         {
             await _customerRepository.DeleteAsync(id);
+        }
+
+        public async Task<bool> CheckIfCustomerExistsAsync(string email)
+        {
+            return await _customerRepository.CheckIfUserExistsAsync(email);
         }
     }
 }

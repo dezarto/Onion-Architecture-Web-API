@@ -1,7 +1,9 @@
 C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Infrastructure\DezartoAPI.Infrastructure\bin\Debug\net8.0\DezartoAPI.Infrastructure.deps.json
 C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Infrastructure\DezartoAPI.Infrastructure\bin\Debug\net8.0\DezartoAPI.Infrastructure.dll
 C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Infrastructure\DezartoAPI.Infrastructure\bin\Debug\net8.0\DezartoAPI.Infrastructure.pdb
+C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Infrastructure\DezartoAPI.Infrastructure\bin\Debug\net8.0\DezartoAPI.Application.dll
 C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Infrastructure\DezartoAPI.Infrastructure\bin\Debug\net8.0\DezartoAPI.Domain.dll
+C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Infrastructure\DezartoAPI.Infrastructure\bin\Debug\net8.0\DezartoAPI.Application.pdb
 C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Infrastructure\DezartoAPI.Infrastructure\bin\Debug\net8.0\DezartoAPI.Domain.pdb
 C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Infrastructure\DezartoAPI.Infrastructure\obj\Debug\net8.0\DezartoAPI.Infrastructure.csproj.AssemblyReference.cache
 C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Infrastructure\DezartoAPI.Infrastructure\obj\Debug\net8.0\DezartoAPI.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
@@ -13,5 +15,3 @@ C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Infrastructure\DezartoAPI.Infrastru
 C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Infrastructure\DezartoAPI.Infrastructure\obj\Debug\net8.0\refint\DezartoAPI.Infrastructure.dll
 C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Infrastructure\DezartoAPI.Infrastructure\obj\Debug\net8.0\DezartoAPI.Infrastructure.pdb
 C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Infrastructure\DezartoAPI.Infrastructure\obj\Debug\net8.0\ref\DezartoAPI.Infrastructure.dll
-C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Infrastructure\DezartoAPI.Infrastructure\bin\Debug\net8.0\DezartoAPI.Application.dll
-C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Infrastructure\DezartoAPI.Infrastructure\bin\Debug\net8.0\DezartoAPI.Application.pdb

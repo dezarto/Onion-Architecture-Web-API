@@ -1,7 +1,7 @@
 ﻿using DezartoAPI.Domain.Entities;
 using DezartoAPI.Domain.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Driver;
-using System.Linq.Expressions;
 
 namespace DezartoAPI.Infrastructure.Repositories
 {
@@ -14,7 +14,7 @@ namespace DezartoAPI.Infrastructure.Repositories
             _customers = database.GetCollection<Customer>("Customers");
         }
 
-        public async Task<Customer> GetByIdAsync(string id)
+        public async Task<Customer> GetByIdAsync(ObjectId id)
         {
             return await _customers.Find(c => c.Id == id).FirstOrDefaultAsync();
         }
@@ -38,7 +38,7 @@ namespace DezartoAPI.Infrastructure.Repositories
             await _customers.ReplaceOneAsync(c => c.Id == customer.Id, customer);
         }
 
-        public async Task DeleteAsync(string id)
+        public async Task DeleteAsync(ObjectId id)
         {
             await _customers.DeleteOneAsync(c => c.Id == id);
         }

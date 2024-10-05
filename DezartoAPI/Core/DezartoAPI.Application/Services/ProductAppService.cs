@@ -3,6 +3,8 @@ using DezartoAPI.Application.DTOs;
 using DezartoAPI.Application.Interfaces;
 using DezartoAPI.Domain.Entities;
 using DezartoAPI.Domain.Interfaces;
+using DezartoAPI.Domain.Services;
+using MongoDB.Bson;
 
 namespace DezartoAPI.Application.Services
 {
@@ -26,9 +28,9 @@ namespace DezartoAPI.Application.Services
             productDto.Id = product.Id;
         }
 
-        public async Task DeleteProductAsync(string id)
+        public async Task DeleteProductAsync(ObjectId id)
         {
-            await _productService.DeleteProductAsync(id);
+             await _productService.DeleteProductAsync(id);
         }
 
         public async Task<IEnumerable<ProductDTO>> GetAllProductAsync()
@@ -37,7 +39,7 @@ namespace DezartoAPI.Application.Services
             return _mapper.Map<IEnumerable<ProductDTO>>(products);
         }
 
-        public async Task<ProductDTO> GetProductByIdAsync(string id)
+        public async Task<ProductDTO> GetProductByIdAsync(ObjectId id)
         {
             var product = await _productService.GetProductByIdAsync(id);
             return _mapper.Map<ProductDTO>(product);

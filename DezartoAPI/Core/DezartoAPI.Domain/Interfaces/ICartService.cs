@@ -1,18 +1,14 @@
 ﻿using DezartoAPI.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MongoDB.Bson;
 
 namespace DezartoAPI.Domain.Interfaces
 {
     public interface ICartService
     {
-        Task<Cart> GetCartByIdAsync(string id);
+        Task<Cart> GetCartByIdAsync(ObjectId id);
         Task<IEnumerable<Cart>> GetAllCartAsync();
         Task AddCartAsync(Cart cart);
         Task UpdateCartAsync(Cart cart);
-        Task DeleteCartAsync(string id);
+        Task DeleteCartAsync(ObjectId id);
     }
 }

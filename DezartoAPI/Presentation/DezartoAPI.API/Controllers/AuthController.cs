@@ -17,9 +17,9 @@ namespace DezartoAPI.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] CustomerDTO customerDto)
+        public async Task<IActionResult> Register([FromBody] RegisterDTO registerDto)
         {
-            var result = await _authService.RegisterAsync(customerDto);
+            var result = await _authService.RegisterAsync(registerDto);
 
             if (!result.Success)
             {
