@@ -51,6 +51,9 @@ builder.Services.AddScoped<IOrderAppService, OrderAppService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 // **JWT Authentication configuration**
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+var key = jwtSettings["Key"]; // appsettings.json'dan JWT anahtarını al
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -61,11 +64,11 @@ builder.Services.AddAuthentication(options =>
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("gizliAnahtar")), // gizli anahtar buraya yazılır
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
         ValidateIssuer = false,
         ValidateAudience = false,
         ValidateLifetime = true,
-        ClockSkew = TimeSpan.Zero
+        ClockSkew = TimeSpan.Zero // Token geçerlilik süresi kontrolünde esneklik
     };
 });
 

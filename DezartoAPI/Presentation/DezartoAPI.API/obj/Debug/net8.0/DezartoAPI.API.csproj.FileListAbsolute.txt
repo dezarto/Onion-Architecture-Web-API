@@ -59,3 +59,4 @@ C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Presentation\DezartoAPI.API\obj\Deb
 C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Presentation\DezartoAPI.API\obj\Debug\net8.0\DezartoAPI.API.pdb
 C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Presentation\DezartoAPI.API\obj\Debug\net8.0\DezartoAPI.API.genruntimeconfig.cache
 C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Presentation\DezartoAPI.API\obj\Debug\net8.0\ref\DezartoAPI.API.dll
+C:\Users\Semir\Desktop\E-Commerce\DezartoAPI\Presentation\DezartoAPI.API\bin\Debug\net8.0\Microsoft.Bcl.TimeProvider.dll
