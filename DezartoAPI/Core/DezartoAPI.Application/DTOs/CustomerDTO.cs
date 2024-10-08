@@ -1,6 +1,5 @@
 ﻿using DezartoAPI.Domain.Entities;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 
 namespace DezartoAPI.Application.DTOs
 {
@@ -17,8 +16,8 @@ namespace DezartoAPI.Application.DTOs
         public List<Address> Addresses { get; set; } = new List<Address>();
         public DateTime UpdatedDate { get; set; }
         public bool IsActive { get; set; } = true;
-        public string Role { get; set; } = "User"; // Default role
-        public int LoyaltyPoints { get; set; } = 0;  // Default loyalty points
+        public List<string> Roles { get; set; }
+        public int LoyaltyPoints { get; set; }
         public List<ObjectId> OrderIds { get; set; }
         public ObjectId CartId { get; set; }
     }

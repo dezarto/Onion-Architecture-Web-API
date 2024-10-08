@@ -10,14 +10,16 @@ namespace DezartoAPI.Domain.Entities
         public DateTime UpdatedDate { get; set; }
         public List<CartItem> Items { get; set; }
         public decimal TotalPrice { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
         public ObjectId CustomerId { get; set; }
     }
 
     public class CartItem
     {
-        public ObjectId ProductId { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string ProductId { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
-        public decimal TotalPrice => Quantity * UnitPrice;
+        public decimal TotalPrice { get; set; }
     }
 }

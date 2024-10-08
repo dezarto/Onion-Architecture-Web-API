@@ -23,11 +23,21 @@ namespace DezartoAPI.Infrastructure.Services
             // Token oluşturma mantığı
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]); // appsettings.json'dan alınan gizli anahtar
+
+            // Kullanıcının rollerini burada alıyoruz
+            var roles = customerDto.Roles; // customerDto içerisinde rollerin olduğu bir alan olmalı
+
             var claims = new ClaimsIdentity(new[]
             {
                 new Claim(ClaimTypes.Name, customerDto.Email), // Email veya diğer kullanıcı bilgileri
-                new Claim(ClaimTypes.NameIdentifier, customerDto.Id.ToString()) // Kullanıcı ID'si
+                new Claim(ClaimTypes.NameIdentifier, customerDto.Id.ToString()), // Kullanıcı ID'si
             });
+
+            // Roller ekleniyor
+            foreach (var role in roles)
+            {
+                claims.AddClaim(new Claim(ClaimTypes.Role, role));
+            }
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

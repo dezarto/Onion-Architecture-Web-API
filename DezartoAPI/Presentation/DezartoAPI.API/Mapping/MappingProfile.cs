@@ -19,12 +19,14 @@ namespace DezartoAPI.API.Mapping
             // Address ve AddressDTO eşlemesi
             CreateMap<Address, AddressDTO>();
 
+            // Cart ve CartDTO arasında mapleme
             CreateMap<CartDTO, Cart>()
-            .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));
-            CreateMap<Cart, CartDTO>()
-            .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));
-            CreateMap<CartItemDTO, CartItem>().ReverseMap();
+                .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));
 
+            CreateMap<Cart, CartDTO>()
+                .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));
+
+            // CartItem ve CartItemDTO arasında mapleme
             CreateMap<CartItemDTO, CartItem>().ReverseMap();
         }
     }

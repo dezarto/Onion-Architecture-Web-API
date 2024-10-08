@@ -56,9 +56,10 @@ namespace DezartoAPI.Application.Services
             return await _customerService.CheckIfCustomerExistsAsync(email);
         }
 
-        public async Task<Customer> GetByEmailAsync(string email)
+        public async Task<CustomerDTO> GetByCustomerEmailAsync(string email)
         {
-            return await _customerService.GetByEmailAsync(email);
+            var customer = await _customerService.GetByEmailAsync(email);
+            return _mapper.Map<CustomerDTO>(customer);
         }
     }
 }

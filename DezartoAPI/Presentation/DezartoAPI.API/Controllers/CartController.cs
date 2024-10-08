@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DezartoAPI.Application.DTOs;
 using DezartoAPI.Application.Interfaces;
-using DezartoAPI.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
@@ -13,14 +12,15 @@ namespace DezartoAPI.API.Controllers
     [ApiController]
     public class CartController : ControllerBase
     {
-        private readonly ICartAppService _cartService;
+        private readonly ICartAppService _cartAppService;
         private readonly IProductAppService _productAppService;
         private readonly ICustomerAppService _customerAppService;
         private readonly IMapper _mapper;
 
-        public CartController(ICartAppService cartService, IProductAppService productService, IMapper mapper)
+        public CartController(ICartAppService cartAppService, IProductAppService productService, IMapper mapper, ICustomerAppService customerAppService)
         {
-            _cartService = cartService;
+            _customerAppService = customerAppService;
+            _cartAppService = cartAppService;
             _productAppService = productService;
             _mapper = mapper;
         }
@@ -30,7 +30,7 @@ namespace DezartoAPI.API.Controllers
         {
             if (ObjectId.TryParse(id, out var objectId))
             {
-                var product = await _cartService.GetCartByIdAsync(objectId);
+                var product = await _cartAppService.GetCartByIdAsync(objectId);
                 if (product == null)
                 {
                     return NotFound();
@@ -46,14 +46,14 @@ namespace DezartoAPI.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var products = await _cartService.GetAllCartAsync();
+            var products = await _cartAppService.GetAllCartAsync();
             return Ok(products);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(CartDTO cartDTO)
         {
-            await _cartService.AddCartAsync(cartDTO);
+            await _cartAppService.AddCartAsync(cartDTO);
             return Ok();
         }
 
@@ -61,78 +61,121 @@ namespace DezartoAPI.API.Controllers
         public async Task<IActionResult> Update(ObjectId id, CartDTO cartDTO)
         {
             cartDTO.Id = id;
-            await _cartService.UpdateCartAsync(cartDTO);
+            await _cartAppService.UpdateCartAsync(cartDTO);
             return Ok(cartDTO);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(ObjectId id)
         {
-            await _cartService.DeleteCartAsync(id);
+            await _cartAppService.DeleteCartAsync(id);
             return NoContent();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin, User")]
         [HttpPost("add")]
         public async Task<IActionResult> AddToCart([FromBody] CartDTO cartDto)
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userEmail = User.FindFirst(ClaimTypes.Name)?.Value;
 
-            // Müşteriyi al
-            var customer = await _customerAppService.GetCustomerByIdAsync(cartDto.CustomerId);
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return Unauthorized();
+            }
+
+            var customer = await _customerAppService.GetByCustomerEmailAsync(userEmail);
+
             if (customer == null)
             {
                 return NotFound("Customer not found.");
             }
 
-            // Customer'ın CartId'sini al
-            var cartId = customer.CartId == ObjectId.Empty ? ObjectId.GenerateNewId() : customer.CartId;
-
-            var cart = await _cartService.GetCartByIdAsync(cartId);
+            var cart = await _cartAppService.GetCartByIdAsync(customer.CartId);
 
             if (cart == null)
             {
                 cart = new CartDTO
                 {
-                    Id = cartId,
-                    CustomerId = cartDto.CustomerId,
+                    Id = customer.CartId,
+                    CustomerId = customer.Id,
                     CreatedDate = DateTime.UtcNow,
                     UpdatedDate = DateTime.UtcNow,
-                    Items = new List<CartItem>() // CartItem tipi kullanılacak
+                    Items = new List<CartItemDTO>()
                 };
-            }
 
-            // cartDto.Items null veya boş olabilir, kontrol ekleyin
-            if (cartDto.Items == null || cartDto.Items.Count == 0)
-            {
-                return BadRequest("No items in cart.");
-            }
-
-            // DTO'daki item'ları CartItem'a dönüştür
-            var cartItems = _mapper.Map<List<CartItem>>(cartDto.Items);
-
-            // Ürünleri kontrol edip cart'a ekleyin
-            foreach (var cartItem in cartItems)
-            {
-                var product = await _productAppService.GetProductByIdAsync(cartItem.ProductId);
-                if (product == null)
+                if (cartDto.Items == null || cartDto.Items.Count == 0)
                 {
-                    return NotFound($"Product with ID {cartItem.ProductId} not found.");
+                    return BadRequest("No items in cart.");
                 }
 
-                decimal unitPrice = product.Price;
-                cartItem.UnitPrice = unitPrice; // UnitPrice'ı ayarlayın
+                foreach (var cartItem in cartDto.Items)
+                {
+                    if (ObjectId.TryParse(cartItem.ProductId, out ObjectId productId))
+                    {
+                        var product = await _productAppService.GetProductByIdAsync(productId);
 
-                // cart.Items.Add(cartItem);  // TotalPrice hesaplanır, bu satırı ekleyin
-                cart.Items.Add(cartItem);  // Bu satırda hata yok, TotalPrice bir hesaplama.
+                        if (product == null)
+                        {
+                            return NotFound($"Product with ID {cartItem.ProductId} not found.");
+                        }
+
+                        decimal unitPrice = product.Price;
+                        cartItem.UnitPrice = unitPrice;
+
+                        cartItem.TotalPrice = cartItem.Quantity * unitPrice;
+
+                        cart.Items.Add(new CartItemDTO
+                        {
+                            ProductId = cartItem.ProductId,
+                            Quantity = cartItem.Quantity,
+                            UnitPrice = cartItem.UnitPrice,
+                            TotalPrice = cartItem.TotalPrice
+                        });
+                    }
+                    else
+                    {
+                        throw new ArgumentException("The product ID is not a valid ObjectId.", nameof(cartItem.ProductId));
+                    }
+                }
+
+                await _cartAppService.AddCartAsync(cart);
             }
+            else
+            {
+                foreach (var cartItem in cartDto.Items)
+                {
+                    if (ObjectId.TryParse(cartItem.ProductId, out ObjectId productId))
+                    {
+                        var product = await _productAppService.GetProductByIdAsync(productId);
 
-            cart.UpdatedDate = DateTime.UtcNow;
+                        if (product == null)
+                        {
+                            return NotFound($"Product with ID {cartItem.ProductId} not found.");
+                        }
 
-            await _cartService.AddCartAsync(cart);
+                        decimal unitPrice = product.Price;
+                        cartItem.UnitPrice = unitPrice;
+
+                        cartItem.TotalPrice = cartItem.Quantity * unitPrice;
+
+                        cart.Items.Add(new CartItemDTO
+                        {
+                            ProductId = cartItem.ProductId,
+                            Quantity = cartItem.Quantity,
+                            UnitPrice = cartItem.UnitPrice,
+                            TotalPrice = cartItem.TotalPrice
+                        });
+                    }
+                    else
+                    {
+                        throw new ArgumentException("The product ID is not a valid ObjectId.", nameof(cartItem.ProductId));
+                    }
+                }
+
+                await _cartAppService.UpdateCartAsync(cart);
+            }
 
             return Ok(cart);
         }
-
     }
 }

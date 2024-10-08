@@ -12,6 +12,6 @@ namespace DezartoAPI.Application.Interfaces
         Task UpdateCustomerAsync(CustomerDTO customerDto);
         Task DeleteCustomerAsync(ObjectId id);
         Task<bool> CheckIfCustomerExistsAsync(string email);
-        Task<Customer> GetByEmailAsync(string email);
+        Task<CustomerDTO> GetByCustomerEmailAsync(string email);
     }
 }

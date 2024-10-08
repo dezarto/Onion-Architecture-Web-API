@@ -43,21 +43,10 @@ namespace DezartoAPI.Application.Services
                 DateOfBirth = registerDto.DateOfBirth,
                 PasswordHash = hashedPassword,
                 PhoneNumber = registerDto.PhoneNumber,
-                //Addresses = registerDto.Addresses.Select(a => new Address
-                //{
-                //    NameOfAddress = a.NameOfAddress,
-                //    Country = a.Country,
-                //    City = a.City,
-                //    District = a.District,
-                //    Neighborhood = a.Neighborhood,
-                //    Street = a.Street,
-                //    PostalCode = a.PostalCode
-                //}).ToList(),  // Adresleri listeye çeviriyoruz
                 UpdatedDate = DateTime.UtcNow,
                 IsActive = true,
-                Role = registerDto.Role,
+                Roles = registerDto.Roles,
                 LoyaltyPoints = registerDto.LoyaltyPoints,
-                //OrderIds = registerDto.OrderIds ?? new List<string>()
                 CartId = registerDto.CartId,
             };
 
@@ -76,7 +65,7 @@ namespace DezartoAPI.Application.Services
 
         public async Task<AuthResult> LoginAsync(LoginDTO loginDto)
         {
-            var user = await _customerAppService.GetByEmailAsync(loginDto.Email);
+            var user = await _customerAppService.GetByCustomerEmailAsync(loginDto.Email);
 
             if (user == null || !_passwordHasher.VerifyPassword(user.PasswordHash, loginDto.Password))
             {
