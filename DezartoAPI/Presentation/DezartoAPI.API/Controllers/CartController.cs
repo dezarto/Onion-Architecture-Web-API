@@ -25,6 +25,7 @@ namespace DezartoAPI.API.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
@@ -43,6 +44,7 @@ namespace DezartoAPI.API.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -50,6 +52,7 @@ namespace DezartoAPI.API.Controllers
             return Ok(products);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(CartDTO cartDTO)
         {
@@ -57,6 +60,7 @@ namespace DezartoAPI.API.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(ObjectId id, CartDTO cartDTO)
         {
@@ -65,6 +69,7 @@ namespace DezartoAPI.API.Controllers
             return Ok(cartDTO);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(ObjectId id)
         {
@@ -102,77 +107,50 @@ namespace DezartoAPI.API.Controllers
                     UpdatedDate = DateTime.UtcNow,
                     Items = new List<CartItemDTO>()
                 };
+            }
 
-                if (cartDto.Items == null || cartDto.Items.Count == 0)
+            if (cartDto.Items == null || cartDto.Items.Count == 0)
+            {
+                return BadRequest("No items in cart.");
+            }
+
+            foreach (var cartItem in cartDto.Items)
+            {
+                if (ObjectId.TryParse(cartItem.ProductId, out ObjectId productId))
                 {
-                    return BadRequest("No items in cart.");
-                }
+                    var product = await _productAppService.GetProductByIdAsync(productId);
 
-                foreach (var cartItem in cartDto.Items)
+                    if (product == null)
+                    {
+                        return NotFound($"Product with ID {cartItem.ProductId} not found.");
+                    }
+
+                    decimal unitPrice = product.Price;
+                    cartItem.UnitPrice = unitPrice;
+
+                    cartItem.TotalPrice = cartItem.Quantity * unitPrice;
+
+                    cart.Items.Add(new CartItemDTO
+                    {
+                        ProductId = cartItem.ProductId,
+                        Quantity = cartItem.Quantity,
+                        UnitPrice = cartItem.UnitPrice,
+                        TotalPrice = cartItem.TotalPrice
+                    });
+                }
+                else
                 {
-                    if (ObjectId.TryParse(cartItem.ProductId, out ObjectId productId))
-                    {
-                        var product = await _productAppService.GetProductByIdAsync(productId);
-
-                        if (product == null)
-                        {
-                            return NotFound($"Product with ID {cartItem.ProductId} not found.");
-                        }
-
-                        decimal unitPrice = product.Price;
-                        cartItem.UnitPrice = unitPrice;
-
-                        cartItem.TotalPrice = cartItem.Quantity * unitPrice;
-
-                        cart.Items.Add(new CartItemDTO
-                        {
-                            ProductId = cartItem.ProductId,
-                            Quantity = cartItem.Quantity,
-                            UnitPrice = cartItem.UnitPrice,
-                            TotalPrice = cartItem.TotalPrice
-                        });
-                    }
-                    else
-                    {
-                        throw new ArgumentException("The product ID is not a valid ObjectId.", nameof(cartItem.ProductId));
-                    }
+                    throw new ArgumentException("The product ID is not a valid ObjectId.", nameof(cartItem.ProductId));
                 }
+            }
 
-                await _cartAppService.AddCartAsync(cart);
+            if (await _cartAppService.CheckIfCartExistsAsync(customer.CartId))
+            {
+                await _cartAppService.UpdateCartAsync(cart);
             }
             else
             {
-                foreach (var cartItem in cartDto.Items)
-                {
-                    if (ObjectId.TryParse(cartItem.ProductId, out ObjectId productId))
-                    {
-                        var product = await _productAppService.GetProductByIdAsync(productId);
-
-                        if (product == null)
-                        {
-                            return NotFound($"Product with ID {cartItem.ProductId} not found.");
-                        }
-
-                        decimal unitPrice = product.Price;
-                        cartItem.UnitPrice = unitPrice;
-
-                        cartItem.TotalPrice = cartItem.Quantity * unitPrice;
-
-                        cart.Items.Add(new CartItemDTO
-                        {
-                            ProductId = cartItem.ProductId,
-                            Quantity = cartItem.Quantity,
-                            UnitPrice = cartItem.UnitPrice,
-                            TotalPrice = cartItem.TotalPrice
-                        });
-                    }
-                    else
-                    {
-                        throw new ArgumentException("The product ID is not a valid ObjectId.", nameof(cartItem.ProductId));
-                    }
-                }
-
-                await _cartAppService.UpdateCartAsync(cart);
+                await _cartAppService.AddCartAsync(cart);
             }
 
             return Ok(cart);

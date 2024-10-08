@@ -37,5 +37,10 @@ namespace DezartoAPI.Domain.Services
         {
             await _cartRepository.UpdateAsync(cart);
         }
+
+        public async Task<bool> CheckIfCartExistsAsync(ObjectId id)
+        {
+            return await _cartRepository.CheckIfCartExistsAsync(id);
+        }
     }
 }

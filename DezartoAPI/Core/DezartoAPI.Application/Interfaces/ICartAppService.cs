@@ -10,5 +10,6 @@ namespace DezartoAPI.Application.Interfaces
         Task AddCartAsync(CartDTO cartDto);
         Task UpdateCartAsync(CartDTO cartDto);
         Task DeleteCartAsync(ObjectId id);
+        Task<bool> CheckIfCartExistsAsync(ObjectId id);
     }
 }

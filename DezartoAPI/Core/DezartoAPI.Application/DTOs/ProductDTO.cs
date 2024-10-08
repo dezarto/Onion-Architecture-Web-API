@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace DezartoAPI.Application.DTOs
 {
@@ -12,6 +13,8 @@ namespace DezartoAPI.Application.DTOs
         public int EvaluationAmount { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
-        public ObjectId OrdersId { get; set; }
+        public string Category { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string OrdersId { get; set; }
     }
 }

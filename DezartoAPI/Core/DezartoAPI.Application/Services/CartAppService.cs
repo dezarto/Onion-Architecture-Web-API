@@ -49,5 +49,10 @@ namespace DezartoAPI.Application.Services
             var cart = _mapper.Map<Cart>(cartDto);
             await _cartService.UpdateCartAsync(cart);
         }
+
+        public async Task<bool> CheckIfCartExistsAsync(ObjectId id)
+        {
+            return await _cartService.CheckIfCartExistsAsync(id);
+        }
     }
 }

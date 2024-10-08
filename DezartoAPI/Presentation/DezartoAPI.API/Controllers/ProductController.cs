@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DezartoAPI.Application.DTOs;
 using DezartoAPI.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
@@ -19,6 +20,7 @@ namespace DezartoAPI.API.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(ObjectId id) // Guid yerine string kullanıyoruz
         {
@@ -30,6 +32,7 @@ namespace DezartoAPI.API.Controllers
             return Ok(product);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -37,6 +40,7 @@ namespace DezartoAPI.API.Controllers
             return Ok(products);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(ProductDTO productDto)
         {
@@ -44,6 +48,7 @@ namespace DezartoAPI.API.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(ObjectId id, ProductDTO productDto)
         {
@@ -52,6 +57,7 @@ namespace DezartoAPI.API.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(ObjectId id)
         {

@@ -3,28 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Semir\\Desktop\\E-Commerce\\DezartoAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0368839F-A6FE-4AD6-BC94-A87766CE4D9E}|Core\\DezartoAPI.Application\\DezartoAPI.Application.csproj|c:\\users\\semir\\desktop\\e-commerce\\dezartoapi\\core\\dezartoapi.application\\dtos\\cartdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0368839F-A6FE-4AD6-BC94-A87766CE4D9E}|Core\\DezartoAPI.Application\\DezartoAPI.Application.csproj|solutionrelative:core\\dezartoapi.application\\dtos\\cartdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4DE1D553-AD98-444C-A1A2-6F555E1FD32D}|Core\\DezartoAPI.Domain\\DezartoAPI.Domain.csproj|c:\\users\\semir\\desktop\\e-commerce\\dezartoapi\\core\\dezartoapi.domain\\entities\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DE1D553-AD98-444C-A1A2-6F555E1FD32D}|Core\\DezartoAPI.Domain\\DezartoAPI.Domain.csproj|solutionrelative:core\\dezartoapi.domain\\entities\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E1D9AEF9-37C4-408E-99E3-B3D9E8A2F742}|Presentation\\DezartoAPI.API\\DezartoAPI.API.csproj|c:\\users\\semir\\desktop\\e-commerce\\dezartoapi\\presentation\\dezartoapi.api\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1D9AEF9-37C4-408E-99E3-B3D9E8A2F742}|Presentation\\DezartoAPI.API\\DezartoAPI.API.csproj|solutionrelative:presentation\\dezartoapi.api\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E1D9AEF9-37C4-408E-99E3-B3D9E8A2F742}|Presentation\\DezartoAPI.API\\DezartoAPI.API.csproj|c:\\users\\semir\\desktop\\e-commerce\\dezartoapi\\presentation\\dezartoapi.api\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1D9AEF9-37C4-408E-99E3-B3D9E8A2F742}|Presentation\\DezartoAPI.API\\DezartoAPI.API.csproj|solutionrelative:presentation\\dezartoapi.api\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0368839F-A6FE-4AD6-BC94-A87766CE4D9E}|Core\\DezartoAPI.Application\\DezartoAPI.Application.csproj|c:\\users\\semir\\desktop\\e-commerce\\dezartoapi\\core\\dezartoapi.application\\dtos\\cartdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0368839F-A6FE-4AD6-BC94-A87766CE4D9E}|Core\\DezartoAPI.Application\\DezartoAPI.Application.csproj|solutionrelative:core\\dezartoapi.application\\dtos\\cartdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0368839F-A6FE-4AD6-BC94-A87766CE4D9E}|Core\\DezartoAPI.Application\\DezartoAPI.Application.csproj|c:\\users\\semir\\desktop\\e-commerce\\dezartoapi\\core\\dezartoapi.application\\services\\cartappservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0368839F-A6FE-4AD6-BC94-A87766CE4D9E}|Core\\DezartoAPI.Application\\DezartoAPI.Application.csproj|solutionrelative:core\\dezartoapi.application\\services\\cartappservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0368839F-A6FE-4AD6-BC94-A87766CE4D9E}|Core\\DezartoAPI.Application\\DezartoAPI.Application.csproj|c:\\users\\semir\\desktop\\e-commerce\\dezartoapi\\core\\dezartoapi.application\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0368839F-A6FE-4AD6-BC94-A87766CE4D9E}|Core\\DezartoAPI.Application\\DezartoAPI.Application.csproj|solutionrelative:core\\dezartoapi.application\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E1D9AEF9-37C4-408E-99E3-B3D9E8A2F742}|Presentation\\DezartoAPI.API\\DezartoAPI.API.csproj|c:\\users\\semir\\desktop\\e-commerce\\dezartoapi\\presentation\\dezartoapi.api\\mapping\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1D9AEF9-37C4-408E-99E3-B3D9E8A2F742}|Presentation\\DezartoAPI.API\\DezartoAPI.API.csproj|solutionrelative:presentation\\dezartoapi.api\\mapping\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4DE1D553-AD98-444C-A1A2-6F555E1FD32D}|Core\\DezartoAPI.Domain\\DezartoAPI.Domain.csproj|c:\\users\\semir\\desktop\\e-commerce\\dezartoapi\\core\\dezartoapi.domain\\entities\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DE1D553-AD98-444C-A1A2-6F555E1FD32D}|Core\\DezartoAPI.Domain\\DezartoAPI.Domain.csproj|solutionrelative:core\\dezartoapi.domain\\entities\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,53 +26,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 454,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Startup.cs",
-              "DocumentMoniker": "C:\\Users\\Semir\\Desktop\\E-Commerce\\DezartoAPI\\Presentation\\DezartoAPI.API\\Startup.cs",
-              "RelativeDocumentMoniker": "Presentation\\DezartoAPI.API\\Startup.cs",
-              "ToolTip": "C:\\Users\\Semir\\Desktop\\E-Commerce\\DezartoAPI\\Presentation\\DezartoAPI.API\\Startup.cs",
-              "RelativeToolTip": "Presentation\\DezartoAPI.API\\Startup.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-07T22:10:33.964Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "MappingProfile.cs",
-              "DocumentMoniker": "C:\\Users\\Semir\\Desktop\\E-Commerce\\DezartoAPI\\Presentation\\DezartoAPI.API\\Mapping\\MappingProfile.cs",
-              "RelativeDocumentMoniker": "Presentation\\DezartoAPI.API\\Mapping\\MappingProfile.cs",
-              "ToolTip": "C:\\Users\\Semir\\Desktop\\E-Commerce\\DezartoAPI\\Presentation\\DezartoAPI.API\\Mapping\\MappingProfile.cs",
-              "RelativeToolTip": "Presentation\\DezartoAPI.API\\Mapping\\MappingProfile.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAABkAAAAmAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-07T21:15:28.191Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CartAppService.cs",
-              "DocumentMoniker": "C:\\Users\\Semir\\Desktop\\E-Commerce\\DezartoAPI\\Core\\DezartoAPI.Application\\Services\\CartAppService.cs",
-              "RelativeDocumentMoniker": "Core\\DezartoAPI.Application\\Services\\CartAppService.cs",
-              "ToolTip": "C:\\Users\\Semir\\Desktop\\E-Commerce\\DezartoAPI\\Core\\DezartoAPI.Application\\Services\\CartAppService.cs",
-              "RelativeToolTip": "Core\\DezartoAPI.Application\\Services\\CartAppService.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAcwBcAAAAyAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-07T16:31:59.808Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\Semir\\Desktop\\E-Commerce\\DezartoAPI\\Core\\DezartoAPI.Application\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "Core\\DezartoAPI.Application\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\Semir\\Desktop\\E-Commerce\\DezartoAPI\\Core\\DezartoAPI.Application\\Services\\AuthService.cs",
+              "RelativeToolTip": "Core\\DezartoAPI.Application\\Services\\AuthService.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T22:54:01.342Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "CartController.cs",
               "DocumentMoniker": "C:\\Users\\Semir\\Desktop\\E-Commerce\\DezartoAPI\\Presentation\\DezartoAPI.API\\Controllers\\CartController.cs",
               "RelativeDocumentMoniker": "Presentation\\DezartoAPI.API\\Controllers\\CartController.cs",
               "ToolTip": "C:\\Users\\Semir\\Desktop\\E-Commerce\\DezartoAPI\\Presentation\\DezartoAPI.API\\Controllers\\CartController.cs",
               "RelativeToolTip": "Presentation\\DezartoAPI.API\\Controllers\\CartController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAoAAAA",
+              "ViewState": "AQIAAFwAAAAAAAAAAAAuwI8AAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-07T15:42:41.8Z",
               "EditorCaption": ""
@@ -93,20 +62,20 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "CartDTO.cs",
               "DocumentMoniker": "C:\\Users\\Semir\\Desktop\\E-Commerce\\DezartoAPI\\Core\\DezartoAPI.Application\\DTOs\\CartDTO.cs",
               "RelativeDocumentMoniker": "Core\\DezartoAPI.Application\\DTOs\\CartDTO.cs",
               "ToolTip": "C:\\Users\\Semir\\Desktop\\E-Commerce\\DezartoAPI\\Core\\DezartoAPI.Application\\DTOs\\CartDTO.cs",
               "RelativeToolTip": "Core\\DezartoAPI.Application\\DTOs\\CartDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAYAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-07T15:46:33.281Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Cart.cs",
               "DocumentMoniker": "C:\\Users\\Semir\\Desktop\\E-Commerce\\DezartoAPI\\Core\\DezartoAPI.Domain\\Entities\\Cart.cs",
               "RelativeDocumentMoniker": "Core\\DezartoAPI.Domain\\Entities\\Cart.cs",
@@ -114,8 +83,7 @@
               "RelativeToolTip": "Core\\DezartoAPI.Domain\\Entities\\Cart.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAAAoAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-07T15:46:45.626Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-07T15:46:45.626Z"
             }
           ]
         }

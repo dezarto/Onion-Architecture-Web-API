@@ -1,8 +1,6 @@
 ﻿using DezartoAPI.Application.DTOs;
 using DezartoAPI.Application.Interfaces;
 using DezartoAPI.Domain.Interfaces;
-using DezartoAPI.Domain.Entities;
-using MongoDB.Bson;
 using AutoMapper;
 
 namespace DezartoAPI.Application.Services
@@ -11,8 +9,8 @@ namespace DezartoAPI.Application.Services
     {
         private readonly ICustomerAppService _customerAppService;
         private readonly ICustomerRepository _customerRepository;
-        private readonly ITokenService _tokenService; // Token üretimi için servis
-        private readonly IPasswordHasher _passwordHasher; // Şifreyi hashlemek için servis
+        private readonly ITokenService _tokenService;
+        private readonly IPasswordHasher _passwordHasher;
         private readonly IMapper _mapper;
 
         public AuthService(ICustomerRepository customerRepository, ITokenService tokenService, IPasswordHasher passwordHasher, ICustomerAppService customerAppService, IMapper mapper)

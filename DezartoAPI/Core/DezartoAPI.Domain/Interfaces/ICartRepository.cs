@@ -10,5 +10,6 @@ namespace DezartoAPI.Domain.Interfaces
         Task DeleteAsync(ObjectId id);
         Task<IEnumerable<Cart>> GetAllAsync();
         Task<Cart> GetByIdAsync(ObjectId id);
+        Task<bool> CheckIfCartExistsAsync(ObjectId id);
     }
 }

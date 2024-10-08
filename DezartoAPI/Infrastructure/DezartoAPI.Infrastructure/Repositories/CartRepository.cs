@@ -2,12 +2,6 @@
 using DezartoAPI.Domain.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using Org.BouncyCastle.Asn1.X509;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DezartoAPI.Infrastructure.Repositories
 {
@@ -43,6 +37,13 @@ namespace DezartoAPI.Infrastructure.Repositories
         public async Task UpdateAsync(Cart cart)
         {
             await _cart.ReplaceOneAsync(c => c.Id == cart.Id, cart);
+        }
+
+        public async Task<bool> CheckIfCartExistsAsync(ObjectId id)
+        {
+            var cart = await GetByIdAsync(id);
+
+            return cart != null;
         }
     }
 }

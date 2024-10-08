@@ -1,5 +1,6 @@
 ﻿using DezartoAPI.Domain.Entities.Common;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace DezartoAPI.Domain.Entities
 {
@@ -12,6 +13,8 @@ namespace DezartoAPI.Domain.Entities
         public int EvaluationAmount { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
-        public ObjectId OrdersId { get; set; }
+        public string Category { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string OrdersId { get; set; }
     }
 }
