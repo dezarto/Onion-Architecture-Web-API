@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DezartoAPI.Application.DTOs;
 using DezartoAPI.Application.Interfaces;
-using DezartoAPI.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;

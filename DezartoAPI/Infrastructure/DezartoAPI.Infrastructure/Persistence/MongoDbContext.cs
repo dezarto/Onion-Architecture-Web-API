@@ -1,5 +1,4 @@
 ﻿using MongoDB.Driver;
-using DezartoAPI.Domain.Entities;
 
 namespace DezartoAPI.Infrastructure.Persistence
 {

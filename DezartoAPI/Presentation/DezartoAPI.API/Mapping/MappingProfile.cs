@@ -11,7 +11,7 @@ namespace DezartoAPI.API.Mapping
             CreateMap<Customer, CustomerDTO>().ReverseMap();
             CreateMap<Product, ProductDTO>().ReverseMap();
             CreateMap<Order, OrderDTO>().ReverseMap();
-
+            CreateMap<Category, CategoryDTO>().ReverseMap();
             CreateMap<ProductInOrder, ProductInOrderDTO>().ReverseMap();
 
             // CartItemDTO -> ProductInOrder eşlemesi
@@ -31,15 +31,9 @@ namespace DezartoAPI.API.Mapping
             CreateMap<CartItemDTO, CartItem>().ReverseMap();
 
             CreateMap<CartDTO, OrderDTO>()
-           .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId))
-           .ForMember(dest => dest.OrderDate, opt => opt.Ignore())  // OrderDate manuel olarak set edilebilir.
-           .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Items));  // Eşlemesi yapılacak
-
-            // CartItemDTO -> ProductInOrder Map'leme
-            CreateMap<CartItemDTO, ProductInOrder>()
-                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
-                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
-                .ForMember(dest => dest.UnitPrice, opt => opt.MapFrom(src => src.UnitPrice));
+                .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId))
+                .ForMember(dest => dest.OrderDate, opt => opt.Ignore())  // OrderDate manuel olarak set edilebilir.
+                .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Items));  // Eşlemesi yapılacak
         }
     }
 }

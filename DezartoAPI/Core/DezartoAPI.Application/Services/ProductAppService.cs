@@ -3,7 +3,6 @@ using DezartoAPI.Application.DTOs;
 using DezartoAPI.Application.Interfaces;
 using DezartoAPI.Domain.Entities;
 using DezartoAPI.Domain.Interfaces;
-using DezartoAPI.Domain.Services;
 using MongoDB.Bson;
 
 namespace DezartoAPI.Application.Services
@@ -24,7 +23,6 @@ namespace DezartoAPI.Application.Services
             var product = _mapper.Map<Product>(productDto);
             await _productService.AddProductAsync(product);
 
-            // DTO'da ID'yi geri döndürmek isterseniz
             productDto.Id = product.Id;
         }
 

@@ -22,7 +22,7 @@ namespace DezartoAPI.API.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(ObjectId id) // Guid yerine string kullanıyoruz
+        public async Task<IActionResult> GetById(ObjectId id)
         {
             var product = await _productService.GetProductByIdAsync(id);
             if (product == null)
