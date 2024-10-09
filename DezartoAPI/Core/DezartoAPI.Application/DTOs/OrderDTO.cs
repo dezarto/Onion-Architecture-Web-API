@@ -1,5 +1,6 @@
 ﻿using DezartoAPI.Domain.Entities;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace DezartoAPI.Application.DTOs
 {
@@ -9,7 +10,7 @@ namespace DezartoAPI.Application.DTOs
         public string Description { get; set; }
         public string Adress { get; set; }
         public DateTime OrderDate { get; set; }
-        public float TotalAmount { get; set; }
+        public decimal TotalAmount { get; set; }
         public string OrderStatus { get; set; }
         public string ShippingAddressId { get; set; }
         public string BillingAddressId { get; set; }
@@ -21,7 +22,10 @@ namespace DezartoAPI.Application.DTOs
 
     public class ProductInOrderDTO
     {
-        public string ProductId { get; set; } // Ürün referansı
-        public int Quantity { get; set; } // Sipariş edilen ürün miktarı
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string ProductId { get; set; }
+        public int Quantity { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }

@@ -6,7 +6,6 @@ namespace DezartoAPI.Domain.Entities
 {
     public class Cart : BaseEntity
     {
-        public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public List<CartItem> Items { get; set; }
         public decimal TotalPrice { get; set; }

@@ -17,7 +17,7 @@ namespace DezartoAPI.Domain.Entities
         public bool IsActive { get; set; } = true;
         public List<string> Roles { get; set; } = new List<string> { "User" };
         public int LoyaltyPoints { get; set; } = 0;
-        public List<ObjectId> OrderIds { get; set; }
+        public List<string> OrderIds { get; set; }
         public ObjectId CartId { get; set; }
     }
 

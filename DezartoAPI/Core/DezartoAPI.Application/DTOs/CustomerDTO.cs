@@ -18,7 +18,7 @@ namespace DezartoAPI.Application.DTOs
         public bool IsActive { get; set; } = true;
         public List<string> Roles { get; set; }
         public int LoyaltyPoints { get; set; }
-        public List<ObjectId> OrderIds { get; set; }
+        public List<string> OrderIds { get; set; }
         public ObjectId CartId { get; set; }
     }
 

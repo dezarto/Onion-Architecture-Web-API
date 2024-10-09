@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DezartoAPI.Application.DTOs;
 using DezartoAPI.Application.Interfaces;
+using DezartoAPI.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
@@ -15,14 +16,16 @@ namespace DezartoAPI.API.Controllers
         private readonly ICartAppService _cartAppService;
         private readonly IProductAppService _productAppService;
         private readonly ICustomerAppService _customerAppService;
+        private readonly IOrderAppService _orderAppService;
         private readonly IMapper _mapper;
 
-        public CartController(ICartAppService cartAppService, IProductAppService productService, IMapper mapper, ICustomerAppService customerAppService)
+        public CartController(ICartAppService cartAppService, IProductAppService productService, IMapper mapper, ICustomerAppService customerAppService, IOrderAppService orderAppService)
         {
             _customerAppService = customerAppService;
             _cartAppService = cartAppService;
             _productAppService = productService;
             _mapper = mapper;
+            _orderAppService = orderAppService;
         }
 
         [Authorize(Roles = "Admin")]
@@ -108,6 +111,10 @@ namespace DezartoAPI.API.Controllers
                     Items = new List<CartItemDTO>()
                 };
             }
+            else
+            {
+                cart.UpdatedDate = DateTime.UtcNow;
+            }
 
             if (cartDto.Items == null || cartDto.Items.Count == 0)
             {
@@ -125,24 +132,35 @@ namespace DezartoAPI.API.Controllers
                         return NotFound($"Product with ID {cartItem.ProductId} not found.");
                     }
 
-                    decimal unitPrice = product.Price;
-                    cartItem.UnitPrice = unitPrice;
+                    cartItem.UnitPrice = product.UnitPrice;
+                    cartItem.TotalPrice = cartItem.Quantity * product.UnitPrice;
 
-                    cartItem.TotalPrice = cartItem.Quantity * unitPrice;
+                    var existingItem = cart.Items.FirstOrDefault(i => i.ProductId == cartItem.ProductId);
 
-                    cart.Items.Add(new CartItemDTO
+                    if (existingItem != null)
                     {
-                        ProductId = cartItem.ProductId,
-                        Quantity = cartItem.Quantity,
-                        UnitPrice = cartItem.UnitPrice,
-                        TotalPrice = cartItem.TotalPrice
-                    });
+                        existingItem.Quantity += cartItem.Quantity;
+                        existingItem.TotalPrice = existingItem.Quantity * product.UnitPrice;
+                    }
+                    else
+                    {
+                        cart.Items.Add(new CartItemDTO
+                        {
+                            ProductId = cartItem.ProductId,
+                            Quantity = cartItem.Quantity,
+                            UnitPrice = cartItem.UnitPrice,
+                            TotalPrice = cartItem.TotalPrice
+                        });
+                    }
                 }
                 else
                 {
                     throw new ArgumentException("The product ID is not a valid ObjectId.", nameof(cartItem.ProductId));
                 }
             }
+
+            var totalPriceFromItems = cartDto.Items.Select(x => x.TotalPrice).Sum();
+            cart.TotalPrice = cart.TotalPrice != 0 ? cart.TotalPrice + totalPriceFromItems : totalPriceFromItems;
 
             if (await _cartAppService.CheckIfCartExistsAsync(customer.CartId))
             {
@@ -155,5 +173,97 @@ namespace DezartoAPI.API.Controllers
 
             return Ok(cart);
         }
+
+        [Authorize(Roles = "Admin, User")]
+        [HttpPost("remove")]
+        public async Task<IActionResult> RemoveFromCart([FromBody] RemoveItemDTO removeItemDto)
+        {
+            var userEmail = User.FindFirst(ClaimTypes.Name)?.Value;
+
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return Unauthorized();
+            }
+
+            var customer = await _customerAppService.GetByCustomerEmailAsync(userEmail);
+
+            if (customer == null)
+            {
+                return NotFound("Customer not found.");
+            }
+
+            var cart = await _cartAppService.GetCartByIdAsync(customer.CartId);
+
+            if (cart == null)
+            {
+                return NotFound("Cart not found.");
+            }
+
+            if (removeItemDto.ProductId == null)
+            {
+                return BadRequest("ProductId is required.");
+            }
+
+            var cartItem = cart.Items.FirstOrDefault(i => i.ProductId == removeItemDto.ProductId);
+
+            if (cartItem != null)
+            {
+                cart.Items.Remove(cartItem);
+
+                if (!cart.Items.Any())
+                {
+                    await _cartAppService.DeleteCartAsync(cart.Id);
+                    return Ok("Cart is empty and has been deleted.");
+                }
+
+                await _cartAppService.UpdateCartAsync(cart);
+            }
+            else
+            {
+                return NotFound("Product not found in cart.");
+            }
+
+            return Ok(cart);
+        }
+
+        [Authorize(Roles = "Admin, User")]
+        [HttpPost("checkout")]
+        public async Task<IActionResult> CheckoutCart()
+        {
+            var userEmail = User.FindFirst(ClaimTypes.Name)?.Value;
+
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return Unauthorized();
+            }
+
+            var customer = await _customerAppService.GetByCustomerEmailAsync(userEmail);
+
+            if (customer == null)
+            {
+                return NotFound("Customer not found.");
+            }
+
+            var cart = await _cartAppService.GetCartByIdAsync(customer.CartId);
+
+            if (cart == null || !cart.Items.Any())
+            {
+                return BadRequest("Cart is empty.");
+            }
+
+            // AutoMapper kullanarak cart'tan order'a dönüşüm
+            var order = _mapper.Map<OrderDTO>(cart);
+            order.CustomerId = customer.Id;
+            order.OrderDate = DateTime.UtcNow;
+
+            await _orderAppService.AddOrderAsync(order);
+
+            // Cart'ı temizle
+            cart.Items.Clear();
+            await _cartAppService.UpdateCartAsync(cart);
+
+            return Ok(order);
+        }
+
     }
 }

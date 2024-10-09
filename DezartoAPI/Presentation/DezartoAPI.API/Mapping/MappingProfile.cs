@@ -11,23 +11,35 @@ namespace DezartoAPI.API.Mapping
             CreateMap<Customer, CustomerDTO>().ReverseMap();
             CreateMap<Product, ProductDTO>().ReverseMap();
             CreateMap<Order, OrderDTO>().ReverseMap();
-            // Customer ve CustomerDTO eşlemesi
-            CreateMap<Customer, CustomerDTO>()
-                .ForMember(dest => dest.OrderIds, opt => opt.MapFrom(src => src.OrderIds))
-                .ForMember(dest => dest.Addresses, opt => opt.MapFrom(src => src.Addresses));
 
-            // Address ve AddressDTO eşlemesi
-            CreateMap<Address, AddressDTO>();
+            CreateMap<ProductInOrder, ProductInOrderDTO>().ReverseMap();
 
-            // Cart ve CartDTO arasında mapleme
+            // CartItemDTO -> ProductInOrder eşlemesi
+            CreateMap<CartItemDTO, ProductInOrder>()
+                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
+                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
+                .ForMember(dest => dest.UnitPrice, opt => opt.MapFrom(src => src.UnitPrice))
+                .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src => src.TotalPrice));
+
+            // CartDTO ve Cart eşlemesi
             CreateMap<CartDTO, Cart>()
                 .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));
 
             CreateMap<Cart, CartDTO>()
                 .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));
 
-            // CartItem ve CartItemDTO arasında mapleme
             CreateMap<CartItemDTO, CartItem>().ReverseMap();
+
+            CreateMap<CartDTO, OrderDTO>()
+           .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId))
+           .ForMember(dest => dest.OrderDate, opt => opt.Ignore())  // OrderDate manuel olarak set edilebilir.
+           .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Items));  // Eşlemesi yapılacak
+
+            // CartItemDTO -> ProductInOrder Map'leme
+            CreateMap<CartItemDTO, ProductInOrder>()
+                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
+                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
+                .ForMember(dest => dest.UnitPrice, opt => opt.MapFrom(src => src.UnitPrice));
         }
     }
 }
