@@ -10,7 +10,7 @@ namespace DezartoAPI.Application.DTOs
         public string Description { get; set; }
         public string Adress { get; set; }
         public DateTime OrderDate { get; set; }
-        public decimal TotalAmount { get; set; }
+        public decimal TotalPrice { get; set; }
         public string OrderStatus { get; set; }
         public string ShippingAddressId { get; set; }
         public string BillingAddressId { get; set; }

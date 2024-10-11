@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DezartoAPI.Application.DTOs;
 using DezartoAPI.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
@@ -8,6 +9,7 @@ namespace DezartoAPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class OrderController : ControllerBase
     {
         private readonly IOrderAppService _orderService;

@@ -207,13 +207,25 @@ namespace DezartoAPI.API.Controllers
 
             if (cartItem != null)
             {
-                cart.Items.Remove(cartItem);
-
-                if (!cart.Items.Any())
+                if (cartItem.Quantity == 1)
                 {
-                    await _cartAppService.DeleteCartAsync(cart.Id);
-                    return Ok("Cart is empty and has been deleted.");
+                    cart.Items.Remove(cartItem);
+
+                    if (!cart.Items.Any())
+                    {
+                        await _cartAppService.DeleteCartAsync(cart.Id);
+                        return Ok("Cart is empty and has been deleted.");
+                    }
                 }
+
+                if (cartItem.Quantity > 1) 
+                {
+                    cartItem.Quantity = cartItem.Quantity - 1;
+                    cartItem.TotalPrice = cartItem.Quantity * cartItem.UnitPrice;
+                }
+
+                var totalPriceFromItems = cart.Items.Select(x => x.TotalPrice).Sum();
+                cart.TotalPrice = totalPriceFromItems;
 
                 await _cartAppService.UpdateCartAsync(cart);
             }
@@ -254,12 +266,18 @@ namespace DezartoAPI.API.Controllers
             var order = _mapper.Map<OrderDTO>(cart);
             order.CustomerId = customer.Id;
             order.OrderDate = DateTime.UtcNow;
+            order.Id = ObjectId.GenerateNewId();
 
             await _orderAppService.AddOrderAsync(order);
 
-            // Cart'ı temizle
             cart.Items.Clear();
+            cart.TotalPrice = 0;
+            cart.UpdatedDate = DateTime.UtcNow;
             await _cartAppService.UpdateCartAsync(cart);
+
+            customer.OrderIds.Add(order.Id.ToString());
+
+            await _customerAppService.UpdateCustomerAsync(customer);
 
             return Ok(order);
         }

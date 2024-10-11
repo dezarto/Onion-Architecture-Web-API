@@ -9,6 +9,7 @@ namespace DezartoAPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class ProductController : ControllerBase
     {
         private readonly IProductAppService _productService;
