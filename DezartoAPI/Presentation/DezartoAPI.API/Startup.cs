@@ -28,7 +28,7 @@ builder.Services.AddCors(options =>
 
 // MongoDbContext ve IMongoDatabase'i kaydediyoruz
 builder.Services.AddSingleton<MongoDbContext>(sp =>
-    new MongoDbContext("mongodb+srv://semir:semir222@dezarto.apohv9q.mongodb.net/?retryWrites=true&w=majority&appName=dezarto", "dezartoDB"));
+    new MongoDbContext("DB", "DB"));
 
 builder.Services.AddSingleton<IMongoDatabase>(sp => sp.GetRequiredService<MongoDbContext>().Database);
 
